@@ -1,3 +1,3 @@
 # ShoppingApp
 ---
-# Made with React Native and uses es-demo API from my repo
+# Made with React Native and uses es API from my repo
