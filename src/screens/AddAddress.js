@@ -28,7 +28,7 @@ const AddAddress = () => {
         [name]: value,
       }
     })
-    console.log(post)
+    // console.log(post)
   }
 
   const showToast = (msg) => {

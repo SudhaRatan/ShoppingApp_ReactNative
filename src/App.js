@@ -13,10 +13,10 @@ import AccountNavigation from './screens/AccountNavigation';
 import Cart from './screens/Cart';
 import CartNavigation from './screens/CartNavigation';
 import HomeNavigation from './screens/HomeNavigation';
-// import Login from './screens/Login';
-// import Nav from './components/NavigationBar';
 
-// const Stack = createStackNavigator();
+import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
 const Main = createBottomTabNavigator();
 
 const App1 = () => {
@@ -33,17 +33,27 @@ const App1 = () => {
       >
         <Main.Screen name="HomeNavigation" component={HomeNavigation}
           options={{
-            tabBarLabel: "Home"
+            tabBarLabel: "Home",
+            tabBarIcon: ({ color, size }) => (
+              <Entypo name="shop" color={color} size={size} />
+            ),
           }}
         />
-        <Main.Screen name="CartNavigation" component={CartNavigation} 
+        <Main.Screen name="CartNavigation" component={CartNavigation}
           options={{
-            tabBarLabel:"Cart"
+            tabBarLabel: "Cart",
+            tabBarIcon: ({ color, size }) => (
+              <Entypo name="shopping-cart" color={color} size={size} />
+            ),
           }}
         />
-        <Main.Screen name="AccountNavigation" component={AccountNavigation} options={{
-          tabBarLabel: "Account"
-        }} />
+        <Main.Screen name="AccountNavigation" component={AccountNavigation}
+          options={{
+            tabBarLabel: "Account",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="account" color={color} size={size} />
+            ),
+          }} />
       </Main.Navigator>
     </NavigationContainer>
   );

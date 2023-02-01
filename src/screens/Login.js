@@ -103,11 +103,11 @@ const Login = ({ route }) => {
 				<Text style={st.h1}>Login</Text>
 				<View style={st.form}>
 					{
-						authStat ? (
-							<View >
+						authStat && (
+							<View>
 								<Text style={{ color: "red", fontSize: 20 }}>{authStat}</Text>
 							</View>
-						) : null
+						)
 					}
 					<TextInput
 						keyboardType="numeric"

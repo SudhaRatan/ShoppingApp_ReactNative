@@ -72,7 +72,13 @@ const ProdCardB = (props) => {
           <View style={{
             flex: 1,
           }}>
-            <Text style={st.txt}>{props.brand} {props.name}</Text>
+          {
+            props.small ? 
+            <Text ellipsizeMode='tail' numberOfLines={1} style={st.txt}>{props.brand} {props.name}</Text>
+            : 
+            <Text ellipsizeMode='tail' numberOfLines={3} style={st.txt}>{props.brand} {props.name}</Text>
+
+          }
             {
               props.price && <Text style={st.txt}>Rs {props.price}</Text>
             }
@@ -116,6 +122,7 @@ export default ProdCardB;
 const st = StyleSheet.create({
   txt: {
     fontSize: 16,
-    color: "#000"
+    color: "#000",
+    maxWidth:222,
   }
 })

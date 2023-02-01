@@ -27,7 +27,7 @@ const AddressCard = (props) => {
       }}>
         {
           !props.sel &&
-            <View style={{ paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: "#80808080", }}>
+            <View style={{ paddingBottom: 10, }}>
               <Button onPress={() => navigation.navigate("AddAddress")} title="Add address" />
             </View>
         }
@@ -38,8 +38,8 @@ const AddressCard = (props) => {
               <View key={index} style={{
                 flexDirection: "row",
                 alignItems: "center",
-                borderBottomWidth: 1,
-                borderBottomColor: "#80808080",
+                borderTopWidth: 1,
+                borderTopColor: "#80808080",
               }}>
                 <View  style={{
                   flex: 1,

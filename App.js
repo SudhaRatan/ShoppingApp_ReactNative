@@ -5,10 +5,7 @@ import 'react-native-gesture-handler';
 
 export default function App() {
   return (
-    <>
-{/* <StatusBar  hidden={true} /> */}
-<App1 />
-    </>
+    <App1 />
   );
 }
 

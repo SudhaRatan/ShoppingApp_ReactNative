@@ -9,11 +9,11 @@ const HomeStack = createStackNavigator();
 const HomeNavigation = () => {
   return (
     <HomeStack.Navigator
-      
-    >
-      <HomeStack.Screen name="Home" component={Home} screenOptions={{
+      screenOptions={{
         header: () => null
-      }} />
+      }}
+    >
+      <HomeStack.Screen name="Home" component={Home} />
       <HomeStack.Screen name="Product" component={Product} />
     </HomeStack.Navigator>
   )
