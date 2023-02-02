@@ -56,54 +56,7 @@ const Home = () => {
 				<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
 			}
 		>
-			<View
-				style={{
-					borderWidth: 1,
-					borderColor: "#808080",
-					// padding: 10,
-					flexDirection: 'row',
-					justifyContent: "space-around",
-					alignItems: "center"
-				}}>
-				<Pressable android_ripple={{ color: "#808080" }}
-					style={{
-						padding: 10,
-					}}
-				>
-					<Fontisto name='search' size={30} color='#000' />
-				</Pressable>
-				<TextInput
-					style={{
-						flex: 1,
-						borderLeftWidth: 1,
-						// borderColor: "#808080",
-						height: 50,
-						color: "#202124",
-						fontSize: 18,
-					}}
-					placeholder="Search Products"
-					placeholderTextColor='#808080'
-					value={search}
-					onChangeText={(value) => setSearch(value)}
-				/>
-				{
-					search &&
-					<Pressable style={{
-						padding:10,
-					}} android_ripple={{ color: "#202124" }}
-					onPress={() => setSearch(null)}
-					>
-						<Entypo name='circle-with-cross' size={30} color='#808080' />
-					</Pressable>
-				}
 
-			</View>
-			{
-				search ?
-					<View>
-						<Text>gsdgdfzg</Text>
-					</View>
-					:
 					<View>
 						<Text style={{
 							fontSize: 28,
@@ -151,7 +104,6 @@ const Home = () => {
 							</View>
 						</View>
 					</View>
-			}
 
 		</ScrollView>
 

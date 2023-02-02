@@ -80,7 +80,7 @@ const ProdCardB = (props) => {
 
           }
             {
-              props.price && <Text style={st.txt}>Rs {props.price}</Text>
+              props.price && <Text style={st.txt}>₹ {props.price}</Text>
             }
           </View>
           {

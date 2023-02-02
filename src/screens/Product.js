@@ -125,7 +125,7 @@ const Product = ({ route }) => {
                   Not rated   ({prod.category})
                 </Text>
                 <Text style={[st.txt]}>
-                  Rs {prod.price}
+                ₹ {prod.price}
                 </Text>
                 <ScrollView style={{
                   maxHeight: 200,
