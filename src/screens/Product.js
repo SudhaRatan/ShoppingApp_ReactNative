@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator, Dimensions, Image, StyleSheet, Button, ToastAndroid } from "react-native";
+import { View, Text, ActivityIndicator, Dimensions, Image, StyleSheet, Button, ToastAndroid,Pressable } from "react-native";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { API } from "../../config";
@@ -7,13 +7,14 @@ import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+import Entypo from 'react-native-vector-icons/Entypo';
 
 const Product = ({ route }) => {
   const width = Dimensions.get('window').width;
   const [prod, setProd] = useState(null)
   const [imgArray, setImgArray] = useState(null)
   const [auth, setAuth] = useState(null)
-  const [load,setLoad] = useState(false)
+  const [load, setLoad] = useState(false)
 
   const navigation = useNavigation()
 
@@ -22,9 +23,9 @@ const Product = ({ route }) => {
   }, [route.params.id])
 
   useFocusEffect(
-    useCallback(()=>{
+    useCallback(() => {
       getDetails(route.params.id)
-    },[route.params.id])
+    }, [route.params.id])
   )
 
   const getDetails = (id) => {
@@ -44,26 +45,26 @@ const Product = ({ route }) => {
       })
   }
 
-	const buyNow = () => {
-		navigation.navigate("SelectAddress",{prods: [prod]})
-	}
+  const buyNow = () => {
+    navigation.navigate("SelectAddress", { prods: [prod] })
+  }
 
 
-  const addToCart = async() => {
+  const addToCart = async () => {
     setLoad(true)
     axios.defaults.headers.put['x-access-token'] = await AsyncStorage.getItem('token')
     axios
-			.put(`${API}/cart`, { id: prod._id })
-			.then((res => {
-				if(res.data.auth){
-					setLoad(false)
-					showToast("Added to cart !")
-				} else {
-					showToast("Something went wrong... try again later")
-					setLoad(false)
-				}
-				
-			}))
+      .put(`${API}/cart`, { id: prod._id })
+      .then((res => {
+        if (res.data.auth) {
+          setLoad(false)
+          showToast("Added to cart !")
+        } else {
+          showToast("Something went wrong... try again later")
+          setLoad(false)
+        }
+
+      }))
   }
 
   const showToast = (msg) => {
@@ -76,10 +77,29 @@ const Product = ({ route }) => {
       backgroundColor: "#ecf0f1"
     }} >
       {
-        auth && imgArray && prod && route.params.id===prod._id ?
+        auth && imgArray && prod && route.params.id === prod._id ?
           <View style={{
             flex: 1,
           }}>
+            <Pressable 
+            style={{
+              width:100,
+              flexDirection:'row',
+              justifyContent:"center",
+              alignItems:"center",
+              }}
+              onPress={()=>{navigation.goBack()}}
+            >
+            <Entypo size={20} name="triangle-left" color='#297fff' />
+              <Text style={{
+                color: '#297fff',
+                // marginLeft: 20,
+                // paddingBottom:10,
+                fontSize:22,
+              }}>
+                Back
+              </Text>
+            </Pressable>
             <ScrollView style={{ flex: 1, }}>
               <Carousel
                 loop
@@ -125,7 +145,7 @@ const Product = ({ route }) => {
                   Not rated   ({prod.category})
                 </Text>
                 <Text style={[st.txt]}>
-                ₹ {prod.price}
+                  ₹ {prod.price}
                 </Text>
                 <ScrollView style={{
                   maxHeight: 200,

@@ -7,9 +7,9 @@ const AddressCard = (props) => {
 
   const selAddress = (index) => {
     navigation.navigate("SelectPayment", {
-        index,
-        prods: props.prods,
-        cart: props.cart
+      index,
+      prods: props.prods,
+      cart: props.cart
     })
   }
 
@@ -25,12 +25,9 @@ const AddressCard = (props) => {
         padding: 10,
         borderRadius: 10,
       }}>
-        {
-          !props.sel &&
-            <View style={{ paddingBottom: 10, }}>
-              <Button onPress={() => navigation.navigate("AddAddress")} title="Add address" />
-            </View>
-        }
+        <View style={{ paddingBottom: 10, }}>
+          <Button onPress={() => navigation.navigate("AddAddress")} title="Add address" />
+        </View>
 
         {
           props.addresses && props.addresses.map((address, index) => {
@@ -41,7 +38,7 @@ const AddressCard = (props) => {
                 borderTopWidth: 1,
                 borderTopColor: "#80808080",
               }}>
-                <View  style={{
+                <View style={{
                   flex: 1,
                 }}>
                   <Text style={ac.txt}><Text style={ac.text1}>{address.fullName} </Text> {props.name}</Text>
@@ -53,7 +50,7 @@ const AddressCard = (props) => {
                 {
                   props.sel &&
                   <View>
-                    <Button onPress={()=> selAddress(index)} color="#202124" title="Select" />
+                    <Button onPress={() => selAddress(index)} color="#202124" title="Select" />
                   </View>
                 }
 

@@ -45,7 +45,6 @@ const Cart = () => {
 							setCart(res.data.message)
 							setProds(res.data.prods.productIds)
 							setRefreshing(false)
-							// console.log(res.data.prods)
 						}
 						else {
 							setProds(null)
@@ -60,8 +59,6 @@ const Cart = () => {
 					setProds(false)
 					setCart("Empty cart")
 					console.log(error)
-					await AsyncStorage.removeItem('token')
-					navigation.navigate("AccountNavigation")
 				}
 			})
 			.catch(err => {

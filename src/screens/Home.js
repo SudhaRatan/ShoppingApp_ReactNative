@@ -82,7 +82,7 @@ const Home = () => {
 								}
 							</View>
 							<View style={homeStyle.feat}>
-								<Text style={homeStyle.h1}>Electronics</Text>
+								<Text style={homeStyle.h1}>Recommendations</Text>
 								{
 									elec ? (
 										<ScrollView horizontal={true}>

@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 const Login = ({ route }) => {
 
 	const width = Dimensions.get('window').width
+	const height = Dimensions.get('window').height
 	const navigation = useNavigation()
 	const [number, setNumber] = useState(null)
 	const [password, setPassword] = useState(null)
@@ -57,6 +58,8 @@ const Login = ({ route }) => {
 			flex: 1,
 			justifyContent: "center",
 			alignItems: "center",
+			backgroundColor: "#ecf0f1",
+			width: width,
 		},
 		txt: {
 			color: "#000",
@@ -67,12 +70,17 @@ const Login = ({ route }) => {
 			fontSize: 28,
 			fontWeight: 600,
 			margin: 10,
+			textAlign: "center",
 		},
 		form: {
-			width: width - 40,
+			flex: 1,
+			flexDirection: "column",
 			padding: 20,
+			width: width,
 			backgroundColor: "#fff",
-			elevation: 4
+			elevation: 8,
+			borderTopLeftRadius: 20,
+			borderTopRightRadius: 20,
 		},
 		inp: {
 			borderBottomWidth: 1,
@@ -98,9 +106,12 @@ const Login = ({ route }) => {
 	})
 
 	return (
-		<ScrollView>
+		<View style={{
+			backgroundColor: '#ecf0f1',
+			flex: 1,
+		}}>
 			<View style={st.login}><LoadingAnim visible={anim} transparent={true} />
-				<Text style={st.h1}>Login</Text>
+				<Text style={st.h1}>Welcome back</Text>
 				<View style={st.form}>
 					{
 						authStat && (
@@ -135,13 +146,13 @@ const Login = ({ route }) => {
 								New user?
 							</Text>
 						</View>
-						<Pressable style={st.btn1}>
+						<Pressable style={st.btn1} onPress={()=>{navigation.navigate('Signup')}}>
 							<Text style={st.txt1}> Signup</Text>
 						</Pressable>
 					</View>
 				</View>
 			</View>
-		</ScrollView>
+		</View>
 	);
 }
 
