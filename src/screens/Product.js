@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator, Dimensions, Image, StyleSheet, Button, ToastAndroid,Pressable } from "react-native";
+import { View, Text, ActivityIndicator, Dimensions, Image, StyleSheet, Button, ToastAndroid, Pressable } from "react-native";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { API } from "../../config";
@@ -81,21 +81,21 @@ const Product = ({ route }) => {
           <View style={{
             flex: 1,
           }}>
-            <Pressable 
-            style={{
-              width:100,
-              flexDirection:'row',
-              justifyContent:"center",
-              alignItems:"center",
+            <Pressable
+              style={{
+                width: 100,
+                flexDirection: 'row',
+                justifyContent: "center",
+                alignItems: "center",
               }}
-              onPress={()=>{navigation.goBack()}}
+              onPress={() => { navigation.goBack() }}
             >
-            <Entypo size={20} name="triangle-left" color='#297fff' />
+              <Entypo size={20} name="triangle-left" color='#297fff' />
               <Text style={{
                 color: '#297fff',
                 // marginLeft: 20,
                 // paddingBottom:10,
-                fontSize:22,
+                fontSize: 22,
               }}>
                 Back
               </Text>
@@ -126,7 +126,28 @@ const Product = ({ route }) => {
                         width: width,
                         height: width,
                         borderRadius: 10,
-                      }} source={{ uri: imgArray[index] }} />
+                      }} source={{ uri: imgArray[index] }}
+                    />
+                    <View style={{
+                      position: 'absolute',
+                      top: 0,
+                      borderWidth:1,
+                      borderRadius:25,
+                      width:30,
+                      height:30,
+                      justifyContent:"center",
+                      alignItems:"center",
+                      backgroundColor:"#00000f",
+                      margin:5,
+                    }}>
+                      <Text style={{
+                        color: "#fff",
+                        fontSize:20,
+                        fontWeight:"bold",
+                      }}>
+                        {index + 1}
+                      </Text>
+                    </View>
                   </View>
                 )}
               />
