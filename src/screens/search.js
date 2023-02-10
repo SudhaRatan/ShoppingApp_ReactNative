@@ -3,6 +3,7 @@ import { API } from '../../config'
 import axios from 'axios'
 import ProdCardB from '../components/productCardB'
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native'
+import { MotiView } from 'moti'
 
 const Search = ({ route }) => {
 
@@ -39,27 +40,43 @@ const Search = ({ route }) => {
     <ScrollView>
       {
         result ?
-          result.map(prod => {
+          result.map((prod,index) => {
             return (
-              <View style={{
-                padding: 4,
-              }} key={prod._id}>
+              <MotiView
+                from={{
+                  scale: 0.2,
+                  // opacity:0
+                }}
+
+                animate={{
+                  scale: 1,
+                  // opacity:1,
+                }}
+
+                transition={{
+                  type:'spring',
+                  delay:80 * index,
+                }}
+
+                style={{
+                  padding: 4,
+                }} key={prod._id}>
                 <ProdCardB
                   id={prod._id}
                   name={prod.name}
                   currency={prod.currency}
                   price={prod.price}
                 />
-              </View>
+              </MotiView>
             )
           })
           :
           message ?
             <Text style={{
-              fontSize:28,
-              color:"#ea0000",
-              fontWeight:600,
-              textAlign:"center",
+              fontSize: 28,
+              color: "#ea0000",
+              fontWeight: 600,
+              textAlign: "center",
             }}>{message}</Text>
             :
             <ActivityIndicator size="large" />

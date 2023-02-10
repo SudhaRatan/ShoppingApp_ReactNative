@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import Entypo from 'react-native-vector-icons/Entypo';
+import { MotiView } from "moti";
 
 const Product = ({ route }) => {
   const width = Dimensions.get('window').width;
@@ -15,6 +16,8 @@ const Product = ({ route }) => {
   const [imgArray, setImgArray] = useState(null)
   const [auth, setAuth] = useState(null)
   const [load, setLoad] = useState(false)
+
+  const [indState, setIndState] = useState(0)
 
   const navigation = useNavigation()
 
@@ -109,14 +112,13 @@ const Product = ({ route }) => {
                 data={imgArray}
                 mode="parallax"
                 scrollAnimationDuration={500}
-                onSnapToItem={(index) => console.log('current index:', index)}
+                onSnapToItem={(index) => setIndState(index)}
                 renderItem={({ index }) => (
                   <View
                     style={{
                       flex: 1,
-                      // borderWidth: 1,
                       justifyContent: 'center',
-                      borderRadius: 10,
+                      borderRadius: 20,
                       backgroundColor: "#fff",
                       elevation: 4
                     }}
@@ -125,25 +127,25 @@ const Product = ({ route }) => {
                       style={{
                         width: width,
                         height: width,
-                        borderRadius: 10,
+                        borderRadius: 20,
                       }} source={{ uri: imgArray[index] }}
                     />
                     <View style={{
                       position: 'absolute',
                       top: 0,
-                      borderWidth:1,
-                      borderRadius:25,
-                      width:30,
-                      height:30,
-                      justifyContent:"center",
-                      alignItems:"center",
-                      backgroundColor:"#00000f",
-                      margin:5,
+                      borderWidth: 1,
+                      borderRadius: 25,
+                      width: 30,
+                      height: 30,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#00000f",
+                      margin: 5,
                     }}>
                       <Text style={{
                         color: "#fff",
-                        fontSize:20,
-                        fontWeight:"bold",
+                        fontSize: 20,
+                        fontWeight: "bold",
                       }}>
                         {index + 1}
                       </Text>
@@ -151,6 +153,45 @@ const Product = ({ route }) => {
                   </View>
                 )}
               />
+
+              <View style={{
+                flex: 1,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                {
+                  imgArray.map((img, index) => {
+                    return (
+                      <MotiView key={index} style={{
+                        width: 10,
+                        height: 10,
+                        borderRadius:5,
+                        backgroundColor: "#1a1f28",
+                        margin: 2,
+                      }}
+
+                        from={{
+                          width: 10,
+                          translateY:-15,
+                        }}
+
+                        animate={{
+                          width: index == indState ? 20 : 10,
+                        }}
+
+                        transition={{
+                          type:'spring',
+                          duration:200,
+                        }}
+                      >
+                      </MotiView>
+                    )
+                  })
+                }
+
+              </View>
+
               <View style={{
                 flex: 1,
                 margin: 14,

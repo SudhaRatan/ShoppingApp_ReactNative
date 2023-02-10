@@ -12,7 +12,6 @@ const MyButton = (props) => {
 
 	const styles = StyleSheet.create({
 		text: {
-			margin: 10,
 			color: props.txtColor? props.txtColor : '#000',
 			fontSize: props.fontSize ? props.fontSize : 20,
 			textAlign: 'center',
@@ -28,9 +27,11 @@ const MyButton = (props) => {
 	})
 
 	return (
-		<View style={styles.button}>
+		<View style={[styles.button,
+		{...props.style}
+		]}>
 		<Pressable
-			hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+			// hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
 			style={({ pressed }) => [
 				{ backgroundColor: pressed ? '#dddddd' : props.color },
 				styles.button,

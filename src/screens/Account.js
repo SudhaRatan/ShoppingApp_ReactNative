@@ -27,8 +27,6 @@ const Account = () => {
 	)
 
 	const getUserData = async () => {
-		setAuth(null)
-		setUserData(null)
 		axios.defaults.headers.get['x-access-token'] = await AsyncStorage.getItem('token')
 		axios
 			.get(`${API}/account`)

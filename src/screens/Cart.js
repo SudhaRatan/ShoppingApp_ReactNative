@@ -7,6 +7,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProdCard from "../components/productCard";
 import LoadingAnim from "../components/loadingAnimModal";
 import ProdCardB from "../components/productCardB";
+import { MotiView } from 'moti'
+import MyButton from "../components/Button";
 
 const Cart = () => {
 
@@ -16,6 +18,7 @@ const Cart = () => {
 	const [prods, setProds] = useState(null)
 	const [load, setLoad] = useState(null)
 	const [refreshing, setRefreshing] = useState(false)
+	const [total, setTotal] = useState(0)
 
 	useEffect(() => {
 		getCart()
@@ -32,6 +35,13 @@ const Cart = () => {
 		getCart()
 	}
 
+	const calculateTotal = (products) => {
+		// setTotal(0)
+		let sum = 0
+		for (let i = 0; i < products.length; i++) {
+			sum = sum + products[i].price
+		} setTotal(sum)
+	}
 	// console.log(cart)
 	const getCart = async () => {
 		setCart(null)
@@ -42,8 +52,10 @@ const Cart = () => {
 				try {
 					if (res.data.auth) {
 						if (res.data.prods.productIds.length !== 0) {
+							setTotal(0)
 							setCart(res.data.message)
 							setProds(res.data.prods.productIds)
+							calculateTotal(res.data.prods.productIds)
 							setRefreshing(false)
 						}
 						else {
@@ -109,12 +121,31 @@ const Cart = () => {
 								</View>
 								<View>
 									{
-										prods ? prods.map((prod) => {
+										prods ? prods.map((prod, index) => {
 
 											return (
-												<View style={{
-													margin: 8,
-												}} key={prod._id}>
+												<MotiView
+													from={{
+														scale: 0.2,
+														// opacity:0
+													}}
+
+													animate={{
+														scale: 1,
+														// opacity:1,
+													}}
+													exit={{
+														scale:0,
+													}}
+
+													transition={{
+														type: 'spring',
+														delay: 80 * index,
+													}}
+
+													style={{
+														margin: 8,
+													}} key={prod._id}>
 													<ProdCardB
 														id={prod._id}
 														name={prod.name}
@@ -123,7 +154,7 @@ const Cart = () => {
 														cart={true}
 														delete={handleDelete}
 													/>
-												</View>
+												</MotiView>
 											)
 										}) : null
 									}
@@ -137,11 +168,30 @@ const Cart = () => {
 			{
 				prods ?
 					<View style={{
-						marginLeft: 15,
-						marginRight: 15,
-						margin: 5,
+						// marginLeft: 15,
+						// marginRight: 15,
+						// margin: 5,
+						paddingHorizontal: 20,
+						paddingVertical: 10,
+						flexDirection: 'row',
+						backgroundColor:'#fffeff',
+						borderTopWidth:1,
+						borderColor:'#eeeeee',
+						elevation:40,
 					}}>
-						<Button onPress={buyNow} title="Checkout" />
+						<View style={{
+								flex: 1,
+							}}>
+							<Text style={{
+								color:'#181f27',
+								fontSize:22,
+							}}>
+								₹ {total}
+							</Text>
+						</View>
+						<MyButton style={{
+							flex: 1
+						}} onPress={buyNow} width={200} color="#7ff010" height={35} fontSize={18} padding={0} title="Checkout" />
 					</View> : null
 			}
 
