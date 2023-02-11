@@ -96,63 +96,76 @@ const Product = ({ route }) => {
               <Entypo size={20} name="triangle-left" color='#297fff' />
               <Text style={{
                 color: '#297fff',
-                // marginLeft: 20,
-                // paddingBottom:10,
                 fontSize: 22,
               }}>
                 Back
               </Text>
             </Pressable>
             <ScrollView style={{ flex: 1, }}>
-              <Carousel
-                loop
-                width={width}
-                height={width}
-                autoPlay={false}
-                data={imgArray}
-                mode="parallax"
-                scrollAnimationDuration={500}
-                onSnapToItem={(index) => setIndState(index)}
-                renderItem={({ index }) => (
-                  <View
-                    style={{
-                      flex: 1,
-                      justifyContent: 'center',
-                      borderRadius: 20,
-                      backgroundColor: "#fff",
-                      elevation: 4
-                    }}
-                  >
-                    <Image
+              <MotiView
+                from={{
+                  translateY: -200,
+                  opacity: 0.5,
+                }}
+                animate={{
+                  translateY: 0,
+                  opacity: 1,
+                }}
+                transition={{
+                  type: 'timing',
+                  delay: 80,
+                }}
+              >
+                <Carousel
+                  loop
+                  width={width}
+                  height={width}
+                  autoPlay={false}
+                  data={imgArray}
+                  mode="parallax"
+                  scrollAnimationDuration={500}
+                  onSnapToItem={(index) => setIndState(index)}
+                  renderItem={({ index }) => (
+                    <View
                       style={{
-                        width: width,
-                        height: width,
+                        flex: 1,
+                        justifyContent: 'center',
                         borderRadius: 20,
-                      }} source={{ uri: imgArray[index] }}
-                    />
-                    <View style={{
-                      position: 'absolute',
-                      top: 0,
-                      borderWidth: 1,
-                      borderRadius: 25,
-                      width: 30,
-                      height: 30,
-                      justifyContent: "center",
-                      alignItems: "center",
-                      backgroundColor: "#00000f",
-                      margin: 5,
-                    }}>
-                      <Text style={{
-                        color: "#fff",
-                        fontSize: 20,
-                        fontWeight: "bold",
+                        backgroundColor: "#fff",
+                        elevation: 4
+                      }}
+                    >
+                      <Image
+                        style={{
+                          width: width,
+                          height: width,
+                          borderRadius: 20,
+                        }} source={{ uri: imgArray[index] }}
+                      />
+                      <View style={{
+                        position: 'absolute',
+                        top: 0,
+                        borderWidth: 1,
+                        borderRadius: 25,
+                        width: 30,
+                        height: 30,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: "#00000f",
+                        margin: 5,
                       }}>
-                        {index + 1}
-                      </Text>
+                        <Text style={{
+                          color: "#fff",
+                          fontSize: 20,
+                          fontWeight: "bold",
+                        }}>
+                          {index + 1}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                )}
-              />
+                  )}
+                />
+              </MotiView>
 
               <View style={{
                 flex: 1,
@@ -166,14 +179,14 @@ const Product = ({ route }) => {
                       <MotiView key={index} style={{
                         width: 10,
                         height: 10,
-                        borderRadius:5,
+                        borderRadius: 5,
                         backgroundColor: "#1a1f28",
                         margin: 2,
                       }}
 
                         from={{
                           width: 10,
-                          translateY:-15,
+                          translateY: -15,
                         }}
 
                         animate={{
@@ -181,8 +194,8 @@ const Product = ({ route }) => {
                         }}
 
                         transition={{
-                          type:'spring',
-                          duration:200,
+                          type: 'spring',
+                          duration: 200,
                         }}
                       >
                       </MotiView>
@@ -192,14 +205,27 @@ const Product = ({ route }) => {
 
               </View>
 
-              <View style={{
+              <MotiView style={{
                 flex: 1,
                 margin: 14,
                 backgroundColor: "#fff",
                 elevation: 3,
                 padding: 10,
                 borderRadius: 10
-              }}>
+              }}
+                from={{
+                  translateY: 200,
+                  opacity: 0.5,
+                }}
+                animate={{
+                  translateY: 0,
+                  opacity: 1,
+                }}
+                transition={{
+                  type: 'timing',
+                  // delay:80,
+                }}
+              >
                 <Text style={[st.txt, { fontSize: 24, }]}>
                   {prod.brand} {prod.name}
                 </Text>
@@ -217,21 +243,48 @@ const Product = ({ route }) => {
                     {prod.description}
                   </Text>
                 </ScrollView>
-              </View>
+              </MotiView>
             </ScrollView>
-            <View style={{
+
+            <MotiView style={{
               // flex:1,
               flexDirection: "row",
               gap: 20,
               justifyContent: "center",
               padding: 10,
-            }}>
+            }}
+            from={{
+              translateY:60,
+            }}
+            animate={{
+              translateY:0,
+            }}
+            >
               <Button onPress={addToCart} title="Add to cart" color="orange" />
               {
-                load ? <ActivityIndicator size="large" /> : null
+                load ?
+                  <MotiView
+                  from={{
+                    scale:0,
+                  }}
+                  animate={{
+                    scale:1,
+                  }}
+                  >
+                    <ActivityIndicator style={{
+                      width: 40,
+                      height: 38,
+                    }} size="large" />
+                  </MotiView>
+                  : <View
+                    style={{
+                      width: 40,
+                      height: 38,
+                    }}
+                  ></View>
               }
               <Button onPress={buyNow} title="    Buy now    " color="#29afff" />
-            </View>
+            </MotiView>
           </View>
           :
           <View style={{
