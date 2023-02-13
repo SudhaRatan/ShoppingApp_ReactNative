@@ -3,6 +3,7 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { API } from "../../config";
+import { MotiPressable } from "moti/interactions";
 
 const ProdCardB = (props) => {
 

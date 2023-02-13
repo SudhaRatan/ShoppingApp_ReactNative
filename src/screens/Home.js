@@ -10,14 +10,13 @@ import { ActivityIndicator } from "react-native";
 import Fontisto from 'react-native-vector-icons/Fontisto'
 
 import Entypo from 'react-native-vector-icons/Entypo'
+import { MotiPressable } from "moti/interactions";
 
 const Home = () => {
 
 	const [feat, setFeat] = useState(null)
 	const [elec, setElect] = useState(null)
 	const [refreshing, setRefreshing] = useState(false)
-
-	const [search, setSearch] = useState(null)
 
 	const getFeature = () => {
 		setFeat(null)
@@ -69,7 +68,6 @@ const Home = () => {
 								<Text style={homeStyle.h1}>Featuring Product</Text>
 								{
 									feat ? (
-										<>
 											<ProdCardB
 												id={feat._id}
 												name={feat.name}
@@ -77,7 +75,6 @@ const Home = () => {
 												price={feat.price}
 												brand={feat.brand}
 											/>
-										</>
 									) : <ActivityIndicator size="large" color="#80cbc4" />
 								}
 							</View>

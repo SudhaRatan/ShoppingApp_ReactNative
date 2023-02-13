@@ -7,6 +7,7 @@ import { NavigationContainer, useNavigationContainerRef } from '@react-navigatio
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
+
 //Screens import
 import Home from './screens/Home';
 import AccountNavigation from './screens/AccountNavigation';
@@ -14,6 +15,7 @@ import Cart from './screens/Cart';
 import CartNavigation from './screens/CartNavigation';
 import HomeNavigation from './screens/HomeNavigation';
 
+// Icons
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -34,24 +36,24 @@ const App1 = () => {
         <Main.Screen name="HomeNavigation" component={HomeNavigation}
           options={{
             tabBarLabel: "Home",
-            tabBarIcon: ({ color, size }) => (
-              <Entypo name="shop" color={color} size={size} />
+            tabBarIcon: ({ focused, color, size }) => (
+              <Entypo name="shop" color={focused ? '#2196f3' : color} size={focused ? size: size*0.8} />
             ),
           }}
         />
         <Main.Screen name="CartNavigation" component={CartNavigation}
           options={{
             tabBarLabel: "Cart",
-            tabBarIcon: ({ color, size }) => (
-              <Entypo name="shopping-cart" color={color} size={size} />
+            tabBarIcon: ({ focused, color, size }) => (
+              <Entypo name="shopping-cart" color={focused ? '#2196f3' : color} size={focused ? size: size*0.8} />
             ),
           }}
         />
         <Main.Screen name="AccountNavigation" component={AccountNavigation}
           options={{
             tabBarLabel: "Account",
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="account" color={color} size={size} />
+            tabBarIcon: ({ focused, color, size }) => (
+              <MaterialCommunityIcons name="account" color={focused ? '#2196f3' : color} size={focused ? size: size*0.8} />
             ),
           }} />
       </Main.Navigator>

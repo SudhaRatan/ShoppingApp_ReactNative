@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import Entypo from 'react-native-vector-icons/Entypo';
-import { MotiView } from "moti";
+import { MotiView,MotiPressable } from "moti";
 
 const Product = ({ route }) => {
   const width = Dimensions.get('window').width;
