@@ -74,6 +74,7 @@ const Home = () => {
 												currency={feat.currency}
 												price={feat.price}
 												brand={feat.brand}
+												prod={feat}
 											/>
 									) : <ActivityIndicator size="large" color="#80cbc4" />
 								}
@@ -92,6 +93,7 @@ const Home = () => {
 														price={prod.price}
 														brand={prod.brand}
 														small="true"
+														prod={prod}
 													/>
 												})
 											}

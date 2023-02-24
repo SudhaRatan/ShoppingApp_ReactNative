@@ -8,7 +8,8 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import Entypo from 'react-native-vector-icons/Entypo';
-import { MotiView,MotiPressable } from "moti";
+import { MotiView, MotiPressable } from "moti";
+import { AnimatePresence } from "moti";
 
 const Product = ({ route }) => {
   const width = Dimensions.get('window').width;
@@ -23,6 +24,7 @@ const Product = ({ route }) => {
 
   useEffect(() => {
     getDetails(route.params.id)
+    console.log(route.params)
   }, [route.params.id])
 
   useFocusEffect(
@@ -32,6 +34,7 @@ const Product = ({ route }) => {
   )
 
   const getDetails = (id) => {
+    setProd(route.params.prod)
     axios
       .get(`${API}/sell/product/${id}`)
       .then(res => {
@@ -39,7 +42,7 @@ const Product = ({ route }) => {
           if (res.data.auth) {
             setAuth(res.data.message)
             setImgArray(res.data.imgArray.imageData)
-            setProd(res.data.prod)
+
           }
         } catch (error) {
           setAuth("error")
@@ -80,7 +83,7 @@ const Product = ({ route }) => {
       backgroundColor: "#ecf0f1"
     }} >
       {
-        auth && imgArray && prod && route.params.id === prod._id ?
+        prod && route.params.id === prod._id ?
           <View style={{
             flex: 1,
           }}>
@@ -102,108 +105,143 @@ const Product = ({ route }) => {
               </Text>
             </Pressable>
             <ScrollView style={{ flex: 1, }}>
-              <MotiView
-                from={{
-                  translateY: -200,
-                  opacity: 0.5,
-                }}
-                animate={{
-                  translateY: 0,
-                  opacity: 1,
-                }}
-                transition={{
-                  type: 'timing',
-                  delay: 80,
-                }}
-              >
-                <Carousel
-                  loop
-                  width={width}
-                  height={width}
-                  autoPlay={false}
-                  data={imgArray}
-                  mode="parallax"
-                  scrollAnimationDuration={500}
-                  onSnapToItem={(index) => setIndState(index)}
-                  renderItem={({ index }) => (
-                    <View
-                      style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                        borderRadius: 20,
-                        backgroundColor: "#fff",
-                        elevation: 4
+              <AnimatePresence exitBeforeEnter>
+                {
+                  imgArray ?
+                  <View key={1}>
+                    <MotiView
+                      from={{
+                        scale: 0.8,
+                      }}
+                      animate={{
+                        scale: 1,
+                      }}
+                    >
+                      <Carousel
+                        loop
+                        width={width}
+                        height={width}
+                        autoPlay={false}
+                        data={imgArray}
+                        mode="parallax"
+                        scrollAnimationDuration={500}
+                        onSnapToItem={(index) => setIndState(index)}
+                        renderItem={({ index }) => (
+                          <View
+                            style={{
+                              flex: 1,
+                              justifyContent: 'center',
+                              borderRadius: 20,
+                              backgroundColor: "#fff",
+                              elevation: 4
+                            }}
+                          >
+                            <Image
+                              style={{
+                                width: width,
+                                height: width,
+                                borderRadius: 20,
+                              }} source={{ uri: imgArray[index] }}
+                            />
+                            <View style={{
+                              position: 'absolute',
+                              top: 0,
+                              borderWidth: 1,
+                              borderRadius: 25,
+                              width: 30,
+                              height: 30,
+                              justifyContent: "center",
+                              alignItems: "center",
+                              backgroundColor: "#00000f",
+                              margin: 5,
+                            }}>
+                              <Text style={{
+                                color: "#fff",
+                                fontSize: 20,
+                                fontWeight: "bold",
+                              }}>
+                                {index + 1}
+                              </Text>
+                            </View>
+                          </View>
+                        )}
+                      />
+                    </MotiView>
+                    <View style={{
+                      flex: 1,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                      {
+                        imgArray.map((img, index) => {
+                          return (
+                            <MotiView key={index} style={{
+                              width: 10,
+                              height: 10,
+                              borderRadius: 5,
+                              backgroundColor: "#1a1f28",
+                              margin: 2,
+                            }}
+
+                              from={{
+                                width: 10,
+                                translateY: -15,
+                              }}
+
+                              animate={{
+                                width: index == indState ? 20 : 10,
+                              }}
+
+                              transition={{
+                                type: 'spring',
+                                duration: 200,
+                              }}
+                            >
+                            </MotiView>
+                          )
+                        })
+                      }
+
+                    </View>
+                  </View>
+                : route.params.image ?
+                  <View  key={2}>
+                    <MotiView style={{
+                      flex: 1,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                      from={{
+                        scale: 0.5
+                      }}
+                      animate={{
+                        scale: 1,
+                        opacity:1
+                      }}
+                      exit={{
+                        scale: 0.9,
+                        opacity:0
                       }}
                     >
                       <Image
                         style={{
+                          width: width-50,
+                          height: width-50,
+                          borderRadius: 20,
+                          marginBottom:10,
+                        }} source={{ uri: route.params.image }}
+                      />
+                      
+                    </MotiView>
+                    <ActivityIndicator size='small' color='#000' />
+                  </View>
+                  : <ActivityIndicator style={{
                           width: width,
                           height: width,
-                          borderRadius: 20,
-                        }} source={{ uri: imgArray[index] }}
-                      />
-                      <View style={{
-                        position: 'absolute',
-                        top: 0,
-                        borderWidth: 1,
-                        borderRadius: 25,
-                        width: 30,
-                        height: 30,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        backgroundColor: "#00000f",
-                        margin: 5,
-                      }}>
-                        <Text style={{
-                          color: "#fff",
-                          fontSize: 20,
-                          fontWeight: "bold",
-                        }}>
-                          {index + 1}
-                        </Text>
-                      </View>
-                    </View>
-                  )}
-                />
-              </MotiView>
-
-              <View style={{
-                flex: 1,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                {
-                  imgArray.map((img, index) => {
-                    return (
-                      <MotiView key={index} style={{
-                        width: 10,
-                        height: 10,
-                        borderRadius: 5,
-                        backgroundColor: "#1a1f28",
-                        margin: 2,
-                      }}
-
-                        from={{
-                          width: 10,
-                          translateY: -15,
-                        }}
-
-                        animate={{
-                          width: index == indState ? 20 : 10,
-                        }}
-
-                        transition={{
-                          type: 'spring',
-                          duration: 200,
-                        }}
-                      >
-                      </MotiView>
-                    )
-                  })
+                        }} size='small' color='#000' />
                 }
-
-              </View>
+              </AnimatePresence>
 
               <MotiView style={{
                 flex: 1,
@@ -253,23 +291,23 @@ const Product = ({ route }) => {
               justifyContent: "center",
               padding: 10,
             }}
-            from={{
-              translateY:60,
-            }}
-            animate={{
-              translateY:0,
-            }}
+              from={{
+                translateY: 60,
+              }}
+              animate={{
+                translateY: 0,
+              }}
             >
               <Button onPress={addToCart} title="Add to cart" color="orange" />
               {
                 load ?
                   <MotiView
-                  from={{
-                    scale:0,
-                  }}
-                  animate={{
-                    scale:1,
-                  }}
+                    from={{
+                      scale: 0,
+                    }}
+                    animate={{
+                      scale: 1,
+                    }}
                   >
                     <ActivityIndicator style={{
                       width: 40,

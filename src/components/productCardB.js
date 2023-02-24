@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { API } from "../../config";
 import { MotiPressable } from "moti/interactions";
+import SharedElement from "react-navigation-shared-element/build/SharedElement";
 
 const ProdCardB = (props) => {
 
@@ -38,7 +39,9 @@ const ProdCardB = (props) => {
       margin: props.small ? 8 : 0,
     }}
       onPress={() => navigation.navigate("Product", {
-        id: props.id
+        id: props.id,
+        prod: props.prod,
+        image
       })}
     >
       <View style={{
