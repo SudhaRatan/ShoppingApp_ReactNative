@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Entypo from 'react-native-vector-icons/Entypo'
+import { API } from "../../config";
 
 import Orders from "./Orders";
 import Account from "./Account";
@@ -12,6 +13,7 @@ import Products from "./Products";
 import Login from "./Login";
 import AddAddress from "./AddAddress";
 import Signup from "./signup";
+import axios from "axios";
 
 const AccountStack = createStackNavigator();
 
@@ -32,7 +34,7 @@ const AccountNavigation = () => {
 					<Pressable style={{
 						padding: 10,
 						flexDirection: "row",
-						alignItems:"center",
+						alignItems: "center",
 					}}
 						android_ripple={{ color: '#808080' }}
 						onPress={logout}
@@ -41,13 +43,50 @@ const AccountNavigation = () => {
 						<Text style={{
 							color: "#000",
 							margin: 5,
-							fontSize:18,
+							fontSize: 18,
 						}}>Logout</Text>
 					</Pressable>
 				)
 			}} name="Account" component={Account} />
 			<AccountStack.Screen options={{
 				title: "Your Orders",
+				headerRight: () => (
+					<View style={{
+						backgroundColor: '#666fff',
+						margin: 10,
+						borderRadius: 10,
+						justifyContent: 'center',
+						width: 120,
+						height: 40,
+						alignItems: 'center',
+					}}>
+						<Pressable style={{
+							backgroundColor: '#666fff',
+							justifyContent: 'center',
+							width: 120,
+							height: 40,
+							alignItems: 'center',
+						}}
+							android_ripple={{ color: '#660ff6', borderless: true }}
+							onPress={async () => {
+								axios.defaults.headers.delete['x-access-token'] = await AsyncStorage.getItem('token')
+								axios
+									.delete(`${API}/account/orders`)
+									.then(res => {
+										console.log(res.data)
+										if (res.data.auth) {
+											navigation.navigate('Account')
+										}
+									})
+							}}
+						>
+							<Text style={{
+								color: '#000',
+								fontSize: 18
+							}}>Clear orders</Text>
+						</Pressable>
+					</View>
+				)
 			}} name="Orders" component={Orders} />
 			<AccountStack.Screen name="Products" component={Products} />
 			<AccountStack.Screen name="Login" component={Login} />

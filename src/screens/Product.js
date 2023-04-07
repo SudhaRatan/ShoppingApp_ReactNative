@@ -91,10 +91,8 @@ const Product = ({ route }) => {
             flex: 1,
           }}>
             <View style={{
-              width: 100,
+              width: 54,
               flexDirection: 'row',
-              justifyContent: "center",
-              alignItems: "center",
               backgroundColor: '#297fff',
               borderRadius: 20,
               marginTop: 10,
@@ -102,10 +100,10 @@ const Product = ({ route }) => {
             }}>
               <Pressable
                 style={{
-                  width: 100,
+                  width: 50,
                   flexDirection: 'row',
-                  justifyContent: "center",
                   alignItems: "center",
+                  justifyContent:'center',
                   backgroundColor: '#297fff',
                   borderRadius: 20,
                   paddingHorizontal: 10,
@@ -114,13 +112,7 @@ const Product = ({ route }) => {
                 onPress={() => { navigation.goBack() }}
                 android_ripple={{ color: '#29ffff', borderless: true }}
               >
-                <Entypo size={20} name="triangle-left" color='#fff' />
-                <Text style={{
-                  color: '#fff',
-                  fontSize: 22,
-                }}>
-                  Back
-                </Text>
+                <Entypo size={30} name="triangle-left" color='#fff' />
               </Pressable>
             </View>
             <ScrollView style={{ flex: 1, }}>
