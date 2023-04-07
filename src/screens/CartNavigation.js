@@ -11,7 +11,7 @@ const CartNavigation = () => {
     <CartStack.Navigator>
       <CartStack.Screen name="Cart" component={Cart}
         options={{
-          title: "Your Cart"
+          header: () => null
         }}
       />
       <CartStack.Screen name="SelectAddress" component={SelectAddress} 

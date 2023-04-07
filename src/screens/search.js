@@ -21,10 +21,8 @@ const Search = ({ route }) => {
     axios
       .get(`${API}/search/${product}`)
       .then(res => {
-        // console.log(res.data)
         if (res.data.length > 0) {
           setResult(res.data)
-          // console.log(res.data)
         } else {
           setResult(null)
           setMessage("No products found")
@@ -32,7 +30,7 @@ const Search = ({ route }) => {
       })
       .catch(error => {
         setResult(null)
-        // console.log(error)
+        console.log(error)
       })
   }
 
@@ -45,12 +43,10 @@ const Search = ({ route }) => {
               <MotiView
                 from={{
                   scale: 0.2,
-                  // opacity:0
                 }}
 
                 animate={{
                   scale: 1,
-                  // opacity:1,
                 }}
 
                 transition={{
@@ -66,6 +62,7 @@ const Search = ({ route }) => {
                   name={prod.name}
                   currency={prod.currency}
                   price={prod.price}
+                  prod={prod}
                 />
               </MotiView>
             )

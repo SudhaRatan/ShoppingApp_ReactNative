@@ -3,8 +3,6 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { API } from "../../config";
-import { MotiPressable } from "moti/interactions";
-import SharedElement from "react-navigation-shared-element/build/SharedElement";
 
 const ProdCardB = (props) => {
 
@@ -35,7 +33,6 @@ const ProdCardB = (props) => {
     <Pressable style={{
       flex: 1,
       flexDirection: props.small ? "column" : "row",
-      // backgroundColor: "#fff",
       margin: props.small ? 8 : 0,
     }}
       onPress={() => navigation.navigate("Product", {
@@ -71,7 +68,6 @@ const ProdCardB = (props) => {
           flex: 1,
           paddingTop: 10,
           paddingLeft: props.small ? null : 10,
-          // backgroundColor:"#000"
         }}>
           <View style={{
             flex: 1,
@@ -90,19 +86,15 @@ const ProdCardB = (props) => {
           {
             props.cart ?
               <View style={{
-                // backgroundColor:"#fff000",
                 flexDirection: "row"
               }}>
                 <View style={{
                   flex: 1
                 }}></View>
                 <Pressable style={{
-                  // flex:1,
-                  // backgroundColor:"#faa000",
                   justifyContent: "center",
                   alignItems: "center",
                   flexDirection: "row",
-                  // height:12,
                   padding: 10,
                 }}
                   onPress={() => props.delete(props.id)}

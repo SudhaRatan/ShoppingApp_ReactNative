@@ -62,6 +62,7 @@ const Home = () => {
 							textAlign: "center",
 							color: "#202124",
 							fontWeight: 600,
+							backgroundColor:'#fff'
 						}}>Home</Text>
 						<View style={homeStyle.home}>
 							<View style={homeStyle.feat}>

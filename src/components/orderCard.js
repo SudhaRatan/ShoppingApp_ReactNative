@@ -26,6 +26,7 @@ const OrderCard = (props) => {
                 name={prod.name}
                 brand={prod.brand}
                 small={true}
+                prod={prod}
               />
             )
 

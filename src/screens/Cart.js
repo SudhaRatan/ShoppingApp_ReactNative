@@ -153,6 +153,7 @@ const Cart = () => {
 														price={prod.price}
 														cart={true}
 														delete={handleDelete}
+														prod={prod}
 													/>
 												</MotiView>
 											)
